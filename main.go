@@ -63,7 +63,7 @@ func countLines(filePath string) {
 		fmt.Println("Error reading file:", err)
 		return
 	}
-	fmt.Println("Number of lines in file:", count)
+	fmt.Println("Number of lines in the file is", count)
 }
 
 func listFiles(dirPath string) {
@@ -88,7 +88,8 @@ func listFiles(dirPath string) {
 		// Displaying file details
 		fmt.Printf("%-25s", file.Name())               // File name
 		fmt.Printf("%-10d", file.Size())               // File size
-		fmt.Printf("%-10s", file.Mode().String())      // File permissions
+		fmt.Printf("%-10s", file.Mode().String())
+		fmt.Print("     ")      // File permissions
 		modTime := file.ModTime().Format(time.RFC1123) // Last modified time
 		fmt.Printf("%-20s\n", modTime)
 	}
