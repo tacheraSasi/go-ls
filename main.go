@@ -12,16 +12,16 @@ func main() {
 	
 	// Getting the current directory or take from args
 	dir := "."
-	if len(os.Args) > 1 {
-		dir = os.Args[1]
+	if len(os.Args) > 2 {
+		dir = os.Args[2]
 	}
 	switch os.Args[1] {
 	case "list":
 		listFiles(dir)
-	case "count line":
+	case "count-lines":
 		countLines(os.Args[2])
 	default:
-		log.Fatal("please enter a valid option")
+		defaultOutput()
 		
 	}
 	
@@ -92,4 +92,8 @@ func listFiles(dirPath string){
 		fmt.Printf("%-20s\n", modTime)
 	}
 
+}
+func defaultOutput(){
+	fmt.Println("Please enter a valid option\nlist <dirPath>\ncount-lines <filePath>")
+	
 }
