@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"time"
 )
@@ -50,6 +52,31 @@ func main() {
 	}
 }
 
-func countLines(file string){
+func countLines(filePath string){
+	if filePath == "" {
+		filePath = "."
+	}
+	file,err := os.Open(filePath) 
+	if err != nil{
+		log.Fatal("Something went wrong while reading",filePath," :",err)
+		return
+	}
+
+	defer file.Close()// closing the file once the function is finished
+
+	scanner := bufio.NewScanner(file)
+	scanner.Split(bufio.ScanLines)
+
+	//getting the number of lines
+	var count int 
+	for scanner.Scan(){
+		count ++
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println(err)
+		return
+	 }
+	 fmt.Println("Number of lines in file:", count)
 
 }
