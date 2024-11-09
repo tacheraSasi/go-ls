@@ -9,91 +9,92 @@ import (
 )
 
 func main() {
-	
-	// Getting the current directory or take from args
+	// Checking if I have an option argument
+	if len(os.Args) < 2 {
+		defaultOutput()
+		return
+	}
+
+	// Setting the option and directory/file path if available
+	option := os.Args[1]
 	dir := "."
+
+	// Updating dir if I have a specific path
 	if len(os.Args) > 2 {
 		dir = os.Args[2]
 	}
-	switch os.Args[1] {
+
+	// Using the chosen option to either list files or count lines
+	switch option {
 	case "list":
 		listFiles(dir)
 	case "count-lines":
-		countLines(os.Args[2])
+		countLines(dir)
 	default:
 		defaultOutput()
-		
 	}
-	
-
-	
 }
 
-func countLines(filePath string){
+func countLines(filePath string) {
 	if filePath == "" {
 		log.Fatal("Please specify a file")
 		return
 	}
-	file,err := os.Open(filePath) 
-	if err != nil{
-		log.Fatal("Something went wrong while reading",filePath," :",err)
+
+	// Opening the file to read line-by-line
+	file, err := os.Open(filePath)
+	if err != nil {
+		log.Fatalf("Something went wrong while reading %s: %v", filePath, err)
 		return
 	}
-
-	defer file.Close()// closing the file once the function is finished
+	defer file.Close() // will close the file when the function is done
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
-	//getting the number of lines
-	var count int 
-	for scanner.Scan(){
-		count ++
+	//  counting the lines in the file
+	var count int
+	for scanner.Scan() {
+		count++
 	}
 
+	// Check if there was an error scanning the file
 	if err := scanner.Err(); err != nil {
-		fmt.Println(err)
+		fmt.Println("Error reading file:", err)
 		return
-	 }
-	 fmt.Println("Number of lines in file:", count)
-
+	}
+	fmt.Println("Number of lines in file:", count)
 }
 
-func listFiles(dirPath string){
-	// Opening the directory
+func listFiles(dirPath string) {
+	// opening the specified directory to read its contents
 	directory, err := os.Open(dirPath)
 	if err != nil {
 		fmt.Println("Error opening directory:", err)
 		return
 	}
-	defer directory.Close()
+	defer directory.Close() // Closing the directory after reading its contents
 
-	// Reading the directory contents
-	files, err := directory.Readdir(-1) // -1 means read all entries
+	//reads all entries in the directory
+	files, err := directory.Readdir(-1) // -1 reads all entries
 	if err != nil {
 		fmt.Println("Error reading directory:", err)
 		return
 	}
 
-	// Looping through the files and display information
+	//  loops through each file and display its details
 	fmt.Println("Listing files in directory:", dirPath)
 	for _, file := range files {
-		// File name
-		fmt.Printf("%-25s", file.Name())
-
-		// File size
-		fmt.Printf("%-10d", file.Size())
-
-		// File permissions
-		fmt.Printf("%-10s", file.Mode().String())
-
-		// Last modified time
-		modTime := file.ModTime().Format(time.RFC1123)
+		// Displaying file details
+		fmt.Printf("%-25s", file.Name())               // File name
+		fmt.Printf("%-10d", file.Size())               // File size
+		fmt.Printf("%-10s", file.Mode().String())      // File permissions
+		modTime := file.ModTime().Format(time.RFC1123) // Last modified time
 		fmt.Printf("%-20s\n", modTime)
 	}
-
 }
-func defaultOutput(){
-	fmt.Println("Please enter a valid option\nlist <dirPath>\ncount-lines <filePath>")
-	
+
+func defaultOutput() {
+	// Displaying usage instructions if the user doesn't provide a valid option
+	fmt.Println("Please enter a valid option:\n-- list <dirPath>\n-- count-lines <filePath>")
 }
