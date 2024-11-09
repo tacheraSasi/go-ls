@@ -10,6 +10,10 @@ func main() {
 	// Getting the current directory or take from args
 	dir := "."
 	if len(os.Args) > 1 {
+		if os.Args[1] == "count-lines"{
+			countLines(os.Args[2])
+			return
+		}
 		dir = os.Args[1]
 	}
 
@@ -44,4 +48,8 @@ func main() {
 		modTime := file.ModTime().Format(time.RFC1123)
 		fmt.Printf("%-20s\n", modTime)
 	}
+}
+
+func countLines(file string){
+
 }
