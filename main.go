@@ -86,7 +86,8 @@ func listFiles(dirPath string) {
 	}
 
 	//  loops through each file and display its details
-	fmt.Println("Listing files in directory:", dirPath)
+	// fmt.Println("Listing files in directory:", dirPath)
+	tableTitle := fmt.Sprintf("LISTING FILES IN DIRECTORY: %s", dirPath)
 	// for _, file := range files {
 	// 	// Displaying file details
 	// 	fmt.Printf("%-25s", file.Name()) // File name
@@ -97,7 +98,7 @@ func listFiles(dirPath string) {
 	// 	fmt.Printf("%-20s\n", modTime)
 	// }
 
-	PrintFiles(files)
+	PrintFiles(files,tableTitle)
 }
 
 func defaultOutput() {

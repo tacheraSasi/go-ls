@@ -9,11 +9,11 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 )
 
-func PrintFiles(files []fs.FileInfo){
+func PrintFiles(files []fs.FileInfo,tableTitle string){
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 	t.SetStyle(table.StyleLight)
-	t.SetTitle("Todos")
+	t.SetTitle(tableTitle)
 	t.AppendHeader(table.Row{"NAME", "SIZE", "MODE","LAST-MODIFIED"})
 
 	for _ , file := range files {
