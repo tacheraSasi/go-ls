@@ -31,6 +31,4 @@ func PrintFiles(files []fs.FileInfo,tableTitle string){
 
 	t.Render()
 
-
-
 }
