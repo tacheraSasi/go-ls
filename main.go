@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
+	// "time"
+	
+
 )
 
 // TODO: Add in the functionality to count the number of line in all files of a certain type
@@ -85,15 +87,17 @@ func listFiles(dirPath string) {
 
 	//  loops through each file and display its details
 	fmt.Println("Listing files in directory:", dirPath)
-	for _, file := range files {
-		// Displaying file details
-		fmt.Printf("%-25s", file.Name()) // File name
-		fmt.Printf("%-10d", file.Size()) // File size
-		fmt.Printf("%-10s", file.Mode().String())
-		fmt.Print("     ")                             // File permissions
-		modTime := file.ModTime().Format(time.RFC1123) // Last modified time
-		fmt.Printf("%-20s\n", modTime)
-	}
+	// for _, file := range files {
+	// 	// Displaying file details
+	// 	fmt.Printf("%-25s", file.Name()) // File name
+	// 	fmt.Printf("%-10d", file.Size()) // File size
+	// 	fmt.Printf("%-10s", file.Mode().String())
+	// 	fmt.Print("     ")                             // File permissions
+	// 	modTime := file.ModTime().Format(time.RFC1123) // Last modified time
+	// 	fmt.Printf("%-20s\n", modTime)
+	// }
+
+	PrintFiles(files)
 }
 
 func defaultOutput() {
