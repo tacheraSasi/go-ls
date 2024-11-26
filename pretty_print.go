@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/fs"
 	"os"
 	"time"
@@ -17,8 +18,9 @@ func PrintFiles(files []fs.FileInfo,tableTitle string){
 	t.AppendHeader(table.Row{"NAME", "SIZE", "MODE","LAST-MODIFIED"})
 
 	for _ , file := range files {
-		modTime := file.ModTime().Format(time.RFC1123) 
-		t.AppendRow(table.Row{file.Name(),file.Size(),file.Mode().String(),modTime})
+		modTime := file.ModTime().Format(time.RFC1123)
+		fileSize := fmt.Sprintf("%d bytes",file.Size())
+		t.AppendRow(table.Row{file.Name(),fileSize,file.Mode().String(),modTime})
 	}
 
 	// Applying dark style
